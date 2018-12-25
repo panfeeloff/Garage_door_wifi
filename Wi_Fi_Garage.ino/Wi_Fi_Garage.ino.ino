@@ -3,7 +3,7 @@
   Rui Santos
   Complete project details at http://randomnerdtutorials.com 
   look at ESP8266WiFiSTA.cpp 
-  use \" when compiler dos not accept " in the HTML code test
+  use \" when compiler dos not accept " in the HTML code test test 
 *********/
 
 #include <ESP8266WiFi.h>
