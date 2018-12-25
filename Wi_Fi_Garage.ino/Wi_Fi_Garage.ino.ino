@@ -3,7 +3,11 @@
   Rui Santos
   Complete project details at http://randomnerdtutorials.com 
   look at ESP8266WiFiSTA.cpp 
+<<<<<<< HEAD
   use \" when compiler dos not accept " in the HTML code test test 
+=======
+  use \" when compiler dos not accept " in the HTML code
+>>>>>>> parent of 545a158... testing branch
 *********/
 
 #include <ESP8266WiFi.h>
