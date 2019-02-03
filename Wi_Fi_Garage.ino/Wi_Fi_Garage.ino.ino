@@ -3,11 +3,7 @@
   Rui Santos
   Complete project details at http://randomnerdtutorials.com 
   look at ESP8266WiFiSTA.cpp 
-<<<<<<< HEAD
-  use \" when compiler dos not accept " in the HTML code test test 
-=======
   use \" when compiler dos not accept " in the HTML code
->>>>>>> parent of 545a158... testing branch
 *********/
 
 #include <ESP8266WiFi.h>
@@ -39,26 +35,42 @@ ESP8266WebServer server(614);
 const char * webPage = " <!DOCTYPE html> "
 
 "<head><meta name=viewport content='width=device-width'></head>"
-"<html> "
-"<body> "
+"<html>"
+"<head>"
+"<link rel=\"shortcut icon\" href=\"#\">"
+"</head>"
+"<body onload=\"body()\">"
 
 "<h1>Garage</h1>"
-"<p>Door <a href=\"socket1On\"><button>UP/DOWN</button></a>&nbsp;</p>"
-"<p>Light <a href=\"socket2On\"><button>ON/OFF</button></a>&nbsp;</p>"
-//"<p><h2>Brightness</h2></p>"
-//"<input type=\"range\" name=\"rangeInput\" min=\"0\" max=\"100\" onchange=\"updateTextInput(this.value);\">"
-//"<input type=\"text\" id=\"textInput\" value=\"\">"
-//"<a id=\"Apply\" href=\"50\">Apply</a>"
+"<p>Door <button onclick=\"s1()\">UP/DOWN</button></p>"
+"<p>Light <button onclick=\"s2()\">ON/OFF</button></p>"
 
-//Script 
+"<br/>"
+"<p id=\"demo\"></p>"
 "<script>"
-"function updateTextInput(val) {"
-"document.getElementById('textInput').value=val+\"%\";"
-"document.getElementById(\"Apply\").href = val;}"
+"function s1() {"
+"window.location.href = \"socket1On\";"
+"}"
+
+"function s2() {"
+"window.location.href = \"socket2On\";"
+"}"
+
+"function body() {"
+"var pathname = window.location.href;"
+"document.getElementById(\"demo\").innerHTML = pathname;"
+"if(pathname==\"http://72.141.74.133:614/socket1On\"||pathname==\"http://72.141.74.133:614/socket2On\"){"
+"window.setTimeout('window.open(\"http://72.141.74.133:614\",\"http://72.141.74.133:614/socket1On\")',1000);"
+"clearTimeout();}"
+"else if(pathname==\"http://192.168.0.14:614/socket1On\"||pathname==\"http://192.168.0.14:614/socket2On\"){"
+"window.setTimeout('window.open(\"http://192.168.0.14:614\",\"http://192.168.0.14:614/socket1On\")',1000);"
+"clearTimeout();}"
+
+"}"
 "</script>"
 
-"</body> "
-"</html> ";
+"</body>" 
+"</html>";
 
 
 int gpio2_pin = 2;
@@ -127,9 +139,10 @@ void setup(void)
     delay(1000);
     digitalWrite(gpio5_pin, HIGH);
     delay(1000);
+    Serial.println("Button toggled");
   });
   
-/*
+
     server.on("/socket2On", [](){
     server.send(200, "text/html", webPage);
     digitalWrite(gpio4_pin, LOW);
@@ -138,20 +151,7 @@ void setup(void)
     delay(1000);
   });
 
-*/
-//REMOVE
- 
-    server.on("/socket2On", [](){
-    server.send(200, "text/html", webPage);
-    digitalWrite(gpio2_pin, LOW);
-    delay(1000);
-    digitalWrite(gpio2_pin, HIGH);
-    delay(1000);
-  });
 
-
-//REMOVE
- 
 
   server.begin();
   Serial.println("HTTP server started");
@@ -163,13 +163,13 @@ void loop(void){
    if (WiFi.status() == WL_CONNECTED) {
       digitalWrite(gpio2_pin, LOW);
   }
-  /*
+  
   //If wifi is disconnected, reconnect
    if (WiFi.status() != WL_CONNECTED) {
     digitalWrite(gpio2_pin, LOW);
     WiFi.begin(ssid, password);
     delay(1000);
     }
-   */
+   
   server.handleClient();
 } 
