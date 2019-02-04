@@ -171,7 +171,9 @@ void setup(void)
 }
  
 void loop(void){
+//=========FOR OTA=============
 ArduinoOTA.handle();
+//=========FOR OTA=============
   //LED indicates that wifi is connected
    if (WiFi.status() == WL_CONNECTED) {
       digitalWrite(gpio2_pin, LOW);
